@@ -1,5 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Joke, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Joke do
+  context 'validations' do
+    it { is_expected.to validate_presence_of :content }
+    it { is_expected.to validate_length_of(:content).is_at_least(20) }
+  end
+
+  context 'assocations' do
+    it { is_expected.to have_many :votes }
+  end
 end

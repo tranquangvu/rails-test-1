@@ -1,5 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe Vote, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Vote do
+  context 'validations' do
+  	it { is_expected.to validate_presence_of :type }
+  end
+
+  context 'assocations' do
+  	it { is_expected.to belong_to :user }
+  	it { is_expected.to belong_to :joke }
+  end
 end
