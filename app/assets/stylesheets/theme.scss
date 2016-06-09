@@ -1,67 +1,67 @@
 body{
-	font-family: 'Raleway', sans-serif;
-	color: $grey-darker-1;
-	background: $grey-lighten-1;
+  font-family: 'Raleway', sans-serif;
+  color: $grey-darker-1;
+  background: $grey-lighten-1;
 }
 
 .white{
-	background: $white;
+  background: $white;
 }
 
 .blue {
-	background: $blue;
+  background: $blue;
 }
 
 .greeen{
-	background: $green;
+  background: $green;
 }
 
 .grey-text {
-	color: $grey;	
+  color: $grey;   
 }
 
 .grey-darker-1-text {
-	color: $grey-darker-1;	
+  color: $grey-darker-1;  
 }
 
 .grey-darker-2-text {
-	color: $grey-darker-2;
+  color: $grey-darker-2;
 }
 
 nav {
-	padding: 0 10%;
-	height: 100px;
-	line-height: 1.0;
-	box-shadow: none;
-	
-	.brand-logo {
-		top: 50%;
-		margin-top: -39px;
-	}
+  padding: 0 10%;
+  height: 100px;
+  line-height: 1.0;
+  box-shadow: none;
+  
+  .brand-logo {
+    top: 50%;
+    margin-top: -39px;
+  }
 
-	ul {
-		a {
-			color: $black;
-			
-			&:hover{
-				background: transparent;
-			}
-		}
+  ul {
+    a {
+      color: $black;
+      
+      &:hover{
+        background: transparent;
+      }
+    }
 
-		.dropdown-button {
-			max-width: 280px;
-			margin: 16px 0;
-			
-			.row {
-				margin-bottom: 0;
-			}
+    .dropdown-button {
+      max-width: 280px;
+      margin: 16px 0;
+      
+      .row {
+        margin-bottom: 0;
+      }
 
-			p {
-				margin: 10px 0;
-				font-size: 14px;
-			}
-		}
-	}
+      p {
+        margin: 10px 0;
+        font-size: 14px;
+      }
+    }
+  }
 }
 
 .intro-header{
@@ -76,8 +76,8 @@ nav {
 }
 
 footer{
-	padding: 20px 0;
-	font-size: 13px;
+  padding: 20px 0;
+  font-size: 13px;
   text-align: center;
   border-top: 1px solid #e0e0e0;
 

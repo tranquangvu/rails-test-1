@@ -3,7 +3,7 @@
 		.content
 			= raw joke.content
 		.votes.center-align
-			= link_to 'This is Funny!', '#', class: 'btn blue waves-effect waves-light'
-			= link_to 'This is not Funny.', '#', class: 'btn green waves-effect waves-light'
+			= link_to 'This is Funny!', like_joke_path(joke), class: 'btn blue waves-effect waves-light', remote: true, method: :post
+			= link_to 'This is not Funny.', like_joke_path(joke), class: 'btn green waves-effect waves-light', remote: true, method: :post
 	- else
 		.content.center-align That's all the jokes for today! Come back another day!
