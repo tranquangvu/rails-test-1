@@ -1,4 +1,13 @@
 #jokes-show-contaner
-	.content
-		= raw @joke.content
-	
+  .content
+    = raw @joke.content
+  .fixed-action-btn
+    a.btn-floating.btn-large.cyan
+      i.large.material-icons menu
+    ul
+      li
+        = link_to edit_joke_path(@joke), class: 'btn-floating orange modal-trigger' do
+          i.material-icons mode_edit
+      li
+        = link_to @joke, method: :delete, data: { confirm: "Delete this joke from database. Are you sure?" }, class: 'btn-floating red' do
+          i.material-icons delete

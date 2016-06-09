@@ -11,14 +11,14 @@
       - jokes.each do |joke|
         tr
           td= link_to joke.id, joke
-          td= truncate(joke.content, length:  60)
+          td= link_to truncate(joke.content, length:  60), joke
           td= joke.created_at.strftime('%m-%e-%y %H:%M')
           td= joke.updated_at.strftime('%m-%e-%y %H:%M')
-          td
+          td width="15%"
             ul.actions
               li
-                = link_to edit_joke_path(joke) do
+                = link_to edit_joke_path(joke), class: 'btn-floating waves-effect waves-light deep-purple' do
                   = fa_icon 'pencil'
               li
-                = link_to joke, method: :delete, data: { confirm: 'Delete this joke from database. Are you sure?' } do
+                = link_to joke, method: :delete, data: { confirm: 'Delete this joke from database. Are you sure?' }, class: 'btn-floating waves-effect waves-light red' do
                   = fa_icon 'trash'
