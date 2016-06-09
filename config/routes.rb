@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   devise_for :users
-  resources :jokes
+  resources :jokes do
+  	member do
+	    post 'like'
+	    post 'dislike'
+	  end
+  end
 
-  root 'jokes#index'
+  root 'home#index'
 end

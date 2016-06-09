@@ -2,5 +2,5 @@ class Vote < ActiveRecord::Base
   belongs_to :joke
   belongs_to :user
 
-  validates :type, presence: true
+  validates :vote_type, presence: true
 end

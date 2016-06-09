@@ -19,6 +19,7 @@ gem 'simple_form', '~> 3.2', '>= 3.2.1'
 gem 'materialize-form'
 gem 'font-awesome-rails'
 gem 'factory_girl_rails'
+gem 'ckeditor'
 
 group :development, :test do
 	gem 'pry-rails'

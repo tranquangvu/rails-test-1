@@ -1,0 +1,5 @@
+<% if @res %>
+	$('#home-index-container').html("<%= render 'jokes/joke', joke: @joke %>");
+<% else %>
+	Materialize.toast('Unsuccessfuly dislike this joke!', 4000);
+<% end %>
