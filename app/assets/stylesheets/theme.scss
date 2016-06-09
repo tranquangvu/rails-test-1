@@ -1,0 +1,97 @@
+body{
+	font-family: 'Raleway', sans-serif;
+	color: $grey-darker-1;
+	background: $grey-lighten-1;
+}
+
+.white{
+	background: $white;
+}
+
+.blue {
+	background: $blue;
+}
+
+.greeen{
+	background: $green;
+}
+
+.grey-text {
+	color: $grey;	
+}
+
+.grey-darker-1-text {
+	color: $grey-darker-1;	
+}
+
+.grey-darker-2-text {
+	color: $grey-darker-2;
+}
+
+nav {
+	padding: 0 10%;
+	height: 100px;
+	line-height: 1.0;
+	box-shadow: none;
+	
+	.brand-logo {
+		top: 50%;
+		margin-top: -39px;
+	}
+
+	ul {
+		a {
+			color: $black;
+			
+			&:hover{
+				background: transparent;
+			}
+		}
+
+		.dropdown-button {
+			max-width: 280px;
+			margin: 16px 0;
+			
+			.row {
+				margin-bottom: 0;
+			}
+
+			p {
+				margin: 10px 0;
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+.intro-header{
+  background: $green;
+  padding: 40px 0;
+  color: $white;
+
+  h1{
+    font-weight: bold;
+    font-size: 36px;
+  }
+}
+
+footer{
+	padding: 20px 0;
+	font-size: 13px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+
+  .about{
+    color: $grey;
+    padding: 0 5%;
+  }
+
+  .copyright{
+    padding-top: 15px;
+    color: $grey-darker-1;
+
+    a{
+      color: $grey-darker-3;
+    }
+  }
+}
