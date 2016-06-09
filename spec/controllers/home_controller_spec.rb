@@ -19,14 +19,26 @@ describe HomeController do
       end
     end
 
-    context 'have read jokes before' do
+    context 'have read some jokes before' do
       before do
-        @request.session[:read_jokes] = [jokes.first.id, jokes.second.id]
+        @request.session[:read_jokes] = jokes.first(2).map{ |j| j.id }
       end
 
       it 'returns a joke which has not read before and render the :index view' do
         do_request
         expect(assigns(:joke)).to eq jokes.last
+        expect(response).to render_template :index
+      end
+    end
+
+    context 'have read all jokes before' do
+      before do
+        @request.session[:read_jokes] = jokes.map{ |j| j.id }
+      end
+
+      it 'returns no joke and render the :index view' do
+        do_request
+        expect(assigns(:joke)).to be_nil
         expect(response).to render_template :index
       end
     end
