@@ -12,6 +12,7 @@ class JokesController < ApplicationController
 
   def create
     @joke = Joke.new(joke_params)
+
     if @joke.save
       redirect_to @joke, notice: 'Joke was successfully created.'
     else
@@ -37,13 +38,15 @@ class JokesController < ApplicationController
   end
 
   def like
-    @res = vote('like')
-    get_rand_joke if @res
+    vote_handler = VoteHandler.new(params[:id], current_user.id)
+    @res = vote_handler.like
+    @joke = vote_handler.next_joke if @res
   end
 
   def dislike
-    @res = vote('dislike')
-    get_rand_joke if @res
+    vote_handler = VoteHandler.new(params[:id], current_user.id)
+    @res = vote_handler.dislike
+    @joke = vote_handler.next_joke if @res
   end
 
   private
@@ -54,15 +57,5 @@ class JokesController < ApplicationController
 
   def find_joke
     @joke = Joke.find(params[:id])
-  end
-
-  def get_rand_joke
-    @joke = Joke.take_excluse(session[:read_jokes])
-  end
-
-  def vote(vote_type)
-    session[:read_jokes].push(params[:id]) 
-    vote = Joke.find(params[:id]).votes.build(vote_type: vote_type, user: current_user)
-    vote.save
   end
 end

@@ -7,7 +7,7 @@ describe HomeController do
     end
 
     let!(:user)   { create(:user) }
-    let!(:jokes)  { create_list(:joke, 3) }
+    let!(:jokes)  { create_list(:joke, 2) }
 
     before { sign_in user } 
 
@@ -21,7 +21,7 @@ describe HomeController do
 
     context 'have read some jokes before' do
       before do
-        @request.session[:read_jokes] = jokes.first(2).map{ |j| j.id }
+        create(:vote, user: user, joke: jokes.first)
       end
 
       it 'returns a joke which has not read before and render the :index view' do
@@ -33,7 +33,9 @@ describe HomeController do
 
     context 'have read all jokes before' do
       before do
-        @request.session[:read_jokes] = jokes.map{ |j| j.id }
+        jokes.each do |joke|
+          create(:vote, user: user, joke: joke)
+        end
       end
 
       it 'returns no joke and render the :index view' do

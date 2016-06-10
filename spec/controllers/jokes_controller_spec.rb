@@ -116,13 +116,9 @@ describe JokesController do
     context 'current is not the final joke' do
       let!(:current_id)       { jokes.first.id }
 
-      before do
-        @request.session[:read_jokes] = []
-      end
-
       it 'likes the joke and returns new joke' do
         expect{ do_request(current_id) }.to change{ Vote.count }.from(0).to(1)
-        expect(Vote.last.vote_type).to eq 'like'
+        expect(assigns(:res).vote_type).to eq 'like'
         expect(assigns(:joke)).to eq jokes.second
       end
     end
@@ -131,12 +127,12 @@ describe JokesController do
       let!(:current_id)       { jokes.last.id }
 
       before do
-        @request.session[:read_jokes] = [jokes.first.id]
+        create(:vote, user: user, joke: jokes.first)
       end
 
       it 'likes the joke and returns no joke' do
-        expect{ do_request(current_id) }.to change{ Vote.count }.from(0).to(1)
-        expect(Vote.last.vote_type).to eq 'like'
+        expect{ do_request(current_id) }.to change{ Vote.count }.from(1).to(2)
+        expect(assigns(:res).vote_type).to eq 'like'
         expect(assigns(:joke)).to be_nil
       end
     end
@@ -157,13 +153,9 @@ describe JokesController do
     context 'current is not the final joke' do
       let!(:current_id)       { jokes.first.id }
 
-      before do
-        @request.session[:read_jokes] = []
-      end
-
-      it 'dislikes the joke returns new joke' do
+      it 'likes the joke and returns new joke' do
         expect{ do_request(current_id) }.to change{ Vote.count }.from(0).to(1)
-        expect(Vote.last.vote_type).to eq 'dislike'
+        expect(assigns(:res).vote_type).to eq 'dislike'
         expect(assigns(:joke)).to eq jokes.second
       end
     end
@@ -172,12 +164,12 @@ describe JokesController do
       let!(:current_id)       { jokes.last.id }
 
       before do
-        @request.session[:read_jokes] = [jokes.first.id]
+        create(:vote, user: user, joke: jokes.first)
       end
 
-      it 'dislikes the joke and returns no joke' do
-        expect{ do_request(current_id) }.to change{ Vote.count }.from(0).to(1)
-        expect(Vote.last.vote_type).to eq 'dislike'
+      it 'likes the joke and returns no joke' do
+        expect{ do_request(current_id) }.to change{ Vote.count }.from(1).to(2)
+        expect(assigns(:res).vote_type).to eq 'dislike'
         expect(assigns(:joke)).to be_nil
       end
     end
