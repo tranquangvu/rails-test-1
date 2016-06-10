@@ -2,9 +2,9 @@ doctype html
 html
   = render 'layouts/head'
   body
-  	= render 'layouts/header'
-  	main.container
-  		- flash.each do |name, msg|
-    		= content_tag :div, msg, class: 'message'
-  		= yield
-  	= render 'layouts/footer'
+    = render 'layouts/header'
+    main.container
+      - flash.each do |name, msg|
+        = content_tag :div, msg, class: 'message'
+      = yield
+    = render 'layouts/footer'

@@ -1,9 +1,9 @@
 .jokes-joke-container
-	- if joke
-		.content
-			== joke.content
-		.votes.center-align
-			= link_to 'This is Funny!', [:like, joke], class: 'btn blue waves-effect waves-light', remote: true, method: :post
-			= link_to 'This is not Funny.', [:dislike, joke], class: 'btn green waves-effect waves-light', remote: true, method: :post
-	- else
-		.content.center-align That's all the jokes for today! Come back another day!
+  - if joke
+    .content
+      == joke.content
+    .votes.center-align
+      = link_to 'This is Funny!', [:like, joke], class: 'btn blue waves-effect waves-light', remote: true, method: :post
+      = link_to 'This is not Funny.', [:dislike, joke], class: 'btn green waves-effect waves-light', remote: true, method: :post
+  - else
+    .content.center-align That's all the jokes for today! Come back another day!
