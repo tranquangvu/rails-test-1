@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe User do
+  context 'validations' do
+    it { is_expected.to validate_presence_of :username }
+    it { is_expected.to have_attached_file(:avatar) }
+    it { is_expected.to validate_attachment_content_type(:avatar).
+                        allowing('image/png', 'image/gif').
+                        rejecting('text/plain', 'text/xml') }
+  end
+
   describe '#read_jokes' do
     let!(:jokes)    { create_list(:joke, 2) }
     let!(:user)     { create(:user) }
