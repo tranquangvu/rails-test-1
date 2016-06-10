@@ -18,10 +18,10 @@
             td width="15%"
               ul.actions
                 li
-                  = link_to edit_joke_path(joke), class: 'btn-floating waves-effect waves-light deep-purple' do
+                  = link_to edit_joke_path(joke), class: 'btn-floating waves-effect waves-light deep-purple' 
                     = fa_icon 'pencil'
                 li
-                  = link_to joke, method: :delete, data: { confirm: 'Delete this joke from database. Are you sure?' }, class: 'btn-floating waves-effect waves-light red' do
+                  = link_to joke, method: :delete, data: { confirm: 'Delete this joke from database. Are you sure?' }, class: 'btn-floating waves-effect waves-light red' 
                     = fa_icon 'trash'
   - else
     p.center-align There are no jokes

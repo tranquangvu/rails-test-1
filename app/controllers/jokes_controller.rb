@@ -1,6 +1,6 @@
 class JokesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_joke, only: [:show, :edit, :update, :destroy]
+  before_action :find_joke, only: [:show, :edit, :update, :destroy, :like, :dislike]
 
   def index
     @jokes = Joke.all
@@ -38,15 +38,15 @@ class JokesController < ApplicationController
   end
 
   def like
-    vote_handler = VoteHandler.new(params[:id], current_user.id)
+    vote_handler = VoteHandler.new(@joke, current_user)
     @res = vote_handler.like
-    @joke = vote_handler.next_joke if @res
+    @next_joke = vote_handler.next_joke if @res
   end
 
   def dislike
-    vote_handler = VoteHandler.new(params[:id], current_user.id)
+    vote_handler = VoteHandler.new(@joke, current_user)
     @res = vote_handler.dislike
-    @joke = vote_handler.next_joke if @res
+    @next_joke = vote_handler.next_joke if @res
   end
 
   private

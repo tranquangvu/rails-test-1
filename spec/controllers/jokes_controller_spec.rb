@@ -71,8 +71,8 @@ describe JokesController do
     end
 
     let!(:user)               { create(:user) }
-    let!(:new_content)        { 'The joke update content' }
     let!(:joke)               { create(:joke) }
+    let!(:new_content)        { 'The joke update content' }
 
     before                    { sign_in user }
 
@@ -119,7 +119,7 @@ describe JokesController do
       it 'likes the joke and returns new joke' do
         expect{ do_request(current_id) }.to change{ Vote.count }.from(0).to(1)
         expect(assigns(:res).vote_type).to eq 'like'
-        expect(assigns(:joke)).to eq jokes.second
+        expect(assigns(:next_joke)).to eq jokes.second
       end
     end
 
@@ -133,7 +133,7 @@ describe JokesController do
       it 'likes the joke and returns no joke' do
         expect{ do_request(current_id) }.to change{ Vote.count }.from(1).to(2)
         expect(assigns(:res).vote_type).to eq 'like'
-        expect(assigns(:joke)).to be_nil
+        expect(assigns(:next_joke)).to be_nil
       end
     end
   end
@@ -156,7 +156,7 @@ describe JokesController do
       it 'likes the joke and returns new joke' do
         expect{ do_request(current_id) }.to change{ Vote.count }.from(0).to(1)
         expect(assigns(:res).vote_type).to eq 'dislike'
-        expect(assigns(:joke)).to eq jokes.second
+        expect(assigns(:next_joke)).to eq jokes.second
       end
     end
 
@@ -170,7 +170,7 @@ describe JokesController do
       it 'likes the joke and returns no joke' do
         expect{ do_request(current_id) }.to change{ Vote.count }.from(1).to(2)
         expect(assigns(:res).vote_type).to eq 'dislike'
-        expect(assigns(:joke)).to be_nil
+        expect(assigns(:next_joke)).to be_nil
       end
     end
   end

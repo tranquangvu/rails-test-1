@@ -2,6 +2,6 @@ class HomeController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@joke = Joke.next_joke(current_user.id)
+		@joke = current_user.next_joke
 	end
 end
