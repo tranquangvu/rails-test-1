@@ -6,10 +6,12 @@ describe JokesController do
       get :index
     end
 
-    let!(:acc)      { create(:user) }
-    let!(:jokes)    { create_list(:joke, 3) }
+    let!(:admin)      { create(:admin) }
 
-    before          { sign_in acc } 
+    before do
+      create_list(:joke, 3)
+      sign_in admin
+    end
 
     it 'assigns jokes and return :index views' do
       do_request
@@ -23,9 +25,9 @@ describe JokesController do
       get :new
     end
 
-    let!(:user)     { create(:user) }
+    let!(:admin)     { create(:admin) }
 
-    before          { sign_in user }
+    before           { sign_in admin }
 
     it 'renders the :new views' do
       do_request
@@ -38,9 +40,9 @@ describe JokesController do
       post :create, joke: attributes_for(:joke)
     end
 
-    let!(:user)      { create(:user) }
+    let!(:admin)      { create(:admin) }
 
-    before           { sign_in user }
+    before            { sign_in admin }
 
     it 'creates a joke' do
       expect{ do_request }.to change{ Joke.count }.from(0).to(1)
@@ -54,10 +56,10 @@ describe JokesController do
       get :edit, id: joke.id
     end
 
-    let!(:user)     { create(:user) }
+    let!(:admin)     { create(:admin) }
     let!(:joke)     { create(:joke) }
 
-    before { sign_in user }
+    before { sign_in admin }
 
     it 'renders view :edit' do
       do_request
@@ -70,11 +72,11 @@ describe JokesController do
       patch :update, { id: joke.id, joke: { content: new_content } }
     end
 
-    let!(:user)               { create(:user) }
+    let!(:admin)              { create(:admin) }
     let!(:joke)               { create(:joke) }
     let!(:new_content)        { 'The joke update content' }
 
-    before                    { sign_in user }
+    before                    { sign_in admin }
 
     it 'updates the joke' do
       do_request
@@ -90,9 +92,9 @@ describe JokesController do
     end
 
     let!(:joke)               { create(:joke) }
-    let!(:user)               { create(:user) }
+    let!(:admin)               { create(:admin) }
 
-    before                    { sign_in user }
+    before                    { sign_in admin }
 
     it 'deletes the product' do
       expect{ do_request }.to change{ Joke.count }.from(1).to(0)
@@ -106,7 +108,8 @@ describe JokesController do
       post :like, id: id, format: :js
     end
 
-    let!(:jokes)              { create_list(:joke, 2) }
+    let!(:first_joke)        { create(:joke) }
+    let!(:second_joke)        { create(:joke) }
     let!(:user)               { create(:user) }
 
     before do
@@ -114,24 +117,20 @@ describe JokesController do
     end
 
     context 'current is not the final joke' do
-      let!(:current_id)       { jokes.first.id }
-
       it 'likes the joke and returns new joke' do
-        expect{ do_request(current_id) }.to change{ Vote.count }.from(0).to(1)
+        expect{ do_request(first_joke.id) }.to change{ Vote.count }.from(0).to(1)
         expect(assigns(:res).vote_type).to eq 'like'
-        expect(assigns(:next_joke)).to eq jokes.second
+        expect(assigns(:next_joke)).to eq second_joke
       end
     end
 
     context 'current is the final joke' do
-      let!(:current_id)       { jokes.last.id }
-
       before do
-        create(:vote, user: user, joke: jokes.first)
+        create(:vote, user: user, joke: first_joke)
       end
 
       it 'likes the joke and returns no joke' do
-        expect{ do_request(current_id) }.to change{ Vote.count }.from(1).to(2)
+        expect{ do_request(second_joke.id) }.to change{ Vote.count }.from(1).to(2)
         expect(assigns(:res).vote_type).to eq 'like'
         expect(assigns(:next_joke)).to be_nil
       end
@@ -143,7 +142,8 @@ describe JokesController do
       post :dislike, id: id, format: :js
     end
 
-    let!(:jokes)              { create_list(:joke, 2) }
+    let!(:first_joke)         { create(:joke) }
+    let!(:second_joke)        { create(:joke) }
     let!(:user)               { create(:user) }
 
     before do
@@ -151,24 +151,20 @@ describe JokesController do
     end
 
     context 'current is not the final joke' do
-      let!(:current_id)       { jokes.first.id }
-
       it 'likes the joke and returns new joke' do
-        expect{ do_request(current_id) }.to change{ Vote.count }.from(0).to(1)
+        expect{ do_request(first_joke.id) }.to change{ Vote.count }.from(0).to(1)
         expect(assigns(:res).vote_type).to eq 'dislike'
-        expect(assigns(:next_joke)).to eq jokes.second
+        expect(assigns(:next_joke)).to eq second_joke
       end
     end
 
     context 'current is the final joke' do
-      let!(:current_id)       { jokes.last.id }
-
       before do
-        create(:vote, user: user, joke: jokes.first)
+        create(:vote, user: user, joke: first_joke)
       end
 
       it 'likes the joke and returns no joke' do
-        expect{ do_request(current_id) }.to change{ Vote.count }.from(1).to(2)
+        expect{ do_request(second_joke.id) }.to change{ Vote.count }.from(1).to(2)
         expect(assigns(:res).vote_type).to eq 'dislike'
         expect(assigns(:next_joke)).to be_nil
       end

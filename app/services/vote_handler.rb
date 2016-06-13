@@ -7,11 +7,11 @@ class VoteHandler
   end
 
   def like
-    joke.votes.create(vote_type: 'like', user_id: user.id)
+    joke.votes.create(vote_type: :like, user_id: user.id)
   end
 
   def dislike
-    joke.votes.create(vote_type: 'dislike', user_id: user.id)
+    joke.votes.create(vote_type: :dislike, user_id: user.id)
   end
 
   def next_joke

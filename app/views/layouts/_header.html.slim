@@ -14,10 +14,12 @@ header
                 .col.s4
                   = image_tag current_user.avatar.url(:thumb), class: 'circle responsive-img'
         ul#dropdown.dropdown-content
-          li
-            = link_to 'All Jokes', jokes_path
-          li
-            = link_to 'New Joke', new_joke_path
+          - if can? :manage, :all
+            li
+              = link_to 'All Jokes', jokes_path
+          - if can? :create, Joke
+            li
+              = link_to 'New Joke', new_joke_path
           li
             = link_to 'Edit Profile', edit_user_registration_path
           li

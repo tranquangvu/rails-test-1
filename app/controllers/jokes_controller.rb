@@ -1,5 +1,5 @@
 class JokesController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :find_joke, only: [:show, :edit, :update, :destroy, :like, :dislike]
 
   def index

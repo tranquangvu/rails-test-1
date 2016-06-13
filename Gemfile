@@ -20,6 +20,8 @@ gem 'materialize-form'
 gem 'font-awesome-rails'
 gem 'factory_girl_rails'
 gem 'ckeditor'
+gem 'enumerize'
+gem 'cancancan', '~> 1.10'
 
 group :development, :test do
 	gem 'pry-rails'
