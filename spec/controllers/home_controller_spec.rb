@@ -6,36 +6,36 @@ describe HomeController do
       get :index
     end
 
-    let!(:user)   { create(:user) }
-    let!(:jokes)  { create_list(:joke, 2) }
+    let!(:user)             { create(:user) }
+    let!(:first_joke)       { create(:joke) }
+    let!(:second_joke)      { create(:joke) }
 
-    before { sign_in user } 
+    before                  { sign_in user } 
 
     context 'have not read any jokes before' do
       it 'returns a joke and renders the :index view' do
         do_request
-        expect(assigns(:joke)).to eq jokes.first
+        expect(assigns(:joke)).to eq first_joke
         expect(response).to render_template :index
       end
     end
 
     context 'have read some jokes before' do
       before do
-        create(:vote, user: user, joke: jokes.first)
+        create(:vote, user: user, joke: first_joke)
       end
 
       it 'returns a joke which has not read before and render the :index view' do
         do_request
-        expect(assigns(:joke)).to eq jokes.last
+        expect(assigns(:joke)).to eq second_joke
         expect(response).to render_template :index
       end
     end
 
     context 'have read all jokes before' do
       before do
-        jokes.each do |joke|
-          create(:vote, user: user, joke: joke)
-        end
+        create(:vote, user: user, joke: first_joke)
+        create(:vote, user: user, joke: second_joke)
       end
 
       it 'returns no joke and render the :index view' do

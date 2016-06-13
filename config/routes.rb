@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  devise_for :users, :controllers => { registrations: 'registrations' }  
+  devise_for :users
   
   resources :jokes do
   	member do
